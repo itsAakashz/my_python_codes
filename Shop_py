@@ -1,0 +1,101 @@
+from multiprocessing import Value
+from secrets import choice
+from numpy import append
+import calendar
+from datetime import datetime
+
+sam = datetime.now()
+current_time = sam.strftime("%H:%M:%S")
+
+stock = {
+    "Urea":"50 bags",
+    "Dap":"60 Bags",
+    "MOP":"80 Bags"
+}
+
+
+with open('stock.txt', 'w') as f:
+    f.write(str(stock))
+
+def view_stock():
+    print(stock)
+
+def add_stock():
+        new_stock=(input("Enter new product name "))
+        new_stock_value=(input("Enter new product quantity "))
+        stock[new_stock] = new_stock_value
+
+def Sale():
+     del_product=input("Enter the product that you want to remove from stock ")
+     delate1 = stock.pop(del_product)
+     print(f'Your prodcut {del_product} had removed ')
+
+
+
+def new_bill(): 
+    new_bill1=input("if you wanna to add new product enter 10.. ")
+    if new_bill1=="9":
+        billing()
+
+
+def billing():
+    shop_name = "JAI LAXMI TRADERS"
+    namec=input("Enter customer names ")
+    view_stock()
+    print("Enter the product from above stock list ")
+    buy_product=input("Enter product name ")
+    buy_product_quantity=input("Enter product quantity ")
+    price1=int(input(f'Enter the {buy_product} price. '))
+    print_bill=f'''                  Dear {namec} thanks for purchasing from {shop_name}.....
+                   PRODUCT NAME            QUANTITY                    RATE
+                   {buy_product}           {buy_product_quantity}                                  {price1}
+
+
+                   Time- {current_time}     
+    
+    '''
+    #new_bill()
+
+
+
+    #if buy_product_quantity<0:
+       # stock[Value]-buy_product_quantity
+          #append(stock)
+
+
+    with open(f'bills/Bill of {namec}.txt', 'w') as f:
+        f.write(print_bill)
+
+
+    print(print_bill)
+
+
+
+
+
+while (True):
+    print('''
+    Choose option
+    1. for viwing stock
+    2. for adding stock
+    3. for delating products
+    4. for billing
+    ''')
+    choice1 = input("Enter your choice ")
+    if choice1=="1":
+       view_stock()
+    
+
+    if choice1=="2":
+       add_stock()
+    
+
+    if choice1=="3":
+       Sale()
+    
+    if choice1=="4":
+        billing()
+        
+
+    if choice1!="1"or"2"or"3"or"4":
+        print("Select Valid option!")
